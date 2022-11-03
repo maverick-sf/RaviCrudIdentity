@@ -1,0 +1,54 @@
+﻿@model AgainBefore.Models.Category
+@{
+    ViewData["Title"] = "Details";
+    IEnumerable<AgainBefore.Models.Product> Products = ViewData["Product"] as IEnumerable<AgainBefore.Models.Product>;
+}
+
+
+<div>
+    <dl class="dl-horiontal">
+    <dt>
+        Category Name
+    </dt>
+    <dd>
+        @Model.CategoryName
+    </dd>
+    <dt>
+       Created on
+    </dt>
+    <dd>
+        @Model.CreatedOn
+    </dd><dt>
+       Updated on
+    </dt>
+    <dd>
+        @Model.UpdatedOn
+    </dd>
+
+    </dl>
+
+    <h4>Products:</h4>
+    <ul>
+
+        @if (Products.Count() > 0){
+            foreach(var product in Products){
+                if(product.ExpiryDate.Date>=DateTime.Now.Date){
+                    <li>@product.ProductName</li>
+                }
+                else{
+                    <li class="text-success">@product.ProductName</li>
+                }
+            }
+        }
+        else{
+            <li>No Product found</li>
+        }
+
+
+
+    </ul>
+<p class="d-inline-flex">
+<a asp-action="Edit" asp-controller="Home" asp-route-CategoryId=@Model.CategoryId class="btn btn-danger">Edit</a>
+</p>
+
+</div>
